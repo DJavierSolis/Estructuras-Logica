@@ -1,8 +1,9 @@
 #include <iostream >
 #include <conio.h>
-
+#include <cmath>
 using namespace std;
 int p,q, valorP,valorQ; 
+int guardar=0;
 void error_datos ();
 int menu();
 void ValorDePreposicion();
@@ -18,6 +19,7 @@ int Disyuncion_Exclusiva();
 int Implicacion ();
 int Bicondicional();
 // principal
+void Tablas();
 int main (){
     int opcion_menu1,datoPreposicion;
     //menu principal de prepociones...
@@ -60,8 +62,13 @@ case 2:
     }
     break;
 case 3:
+    cout <<"===Preposiciones compuestas===";
     
     break;
+case 4:
+cout <<"===COMPARACION VALORES DE VERDAD===";
+Tablas();
+break;
 }
   return 0;
 }
@@ -77,13 +84,13 @@ int menu(){
 int opc;
 do {
     cout <<"========================\n OPERADORES LOGICOS \n========================\n";
-    cout <<"Cuantas condiciones habra. \n 1 | Una preposicion.\n 2 | Dos preposiciones.  \n 3 | Mas de dos preposiciones. \n";     
+    cout <<"Cuantas condiciones habra. \n 1 | Una preposicion.\n 2 | Dos preposiciones.  \n 3 | Mas de dos preposiciones. \n 4 | Comparacion de valores de verdad. \n";     
     cin>>opc;
-    if (opc >3){
+    if (opc >4){
         system("cls");
         error_datos ();
     }
-} while (opc> 3  );
+} while (opc> 4  );
 return opc;
 }
 
@@ -245,5 +252,26 @@ int Bicondicional(){
     }else {
         cout<<"p -> q es Falso\n";
         return 0;
+    }
+}
+void Tablas() {
+    int numeroFilas = pow(2, guardar);
+    int vTablas[numeroFilas][guardar];
+    
+    // Generar valores para la matriz representando números binarios incrementados en uno
+    for (int i = 0; i < numeroFilas; i++) {
+        int num = i;
+        for (int j = guardar - 1; j >= 0; j--) {
+            vTablas[i][j] = num % 2;
+            num /= 2;
+        }
+    }
+    
+    // Imprimir la matriz con un espacio entre cada número
+    for (int i = 0; i < numeroFilas; i++) {
+        for (int j = 0; j < guardar; j++) {
+            cout << vTablas[i][j] << " ";
+        }
+        cout << endl;
     }
 }
