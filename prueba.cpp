@@ -1,70 +1,57 @@
 #include<iostream>
 #include<conio.h>
-#include <cmath>
 using namespace std;
-int guardar=1;
-void Tablas();
+
 int main (){
-    bool primero= false, negar = false;
-string datos,Simbolos[1];
-int repetir=1,valores[100];
-cout <<"Ingrese las preposicion";
+    bool primero= false;
+string datos,valores[100];
+int guardar=0, caso=0,prepro[100],repro[2];
+cout <<"Ingrese las preposicion \n ejemplo '( p v q) ^ r': \n";
 getline(cin,datos);
 cout <<datos<<endl;
+ for (char letra : datos) {
+        if (isalpha(letra) && letra != 'v' && letra != 'V') {
+             cout <<"Ingrese el valor de verdad de la Preposicion "<<letra<<endl;
+             cin>>prepro[guardar];
+if (prepro[guardar] == 1){
+ valores[guardar] = '1';
+}else if (prepro[guardar] == 0){
+ valores[guardar] = '0';
+}
+        cout<<valores[guardar]<<endl;
+        }
+         guardar++;
+    }
+cout <<"lo que estan dentro del parentesis"<<endl;
+ guardar = 0;
+for (char letra:datos){
+    if (letra == '('){
+        primero=true;
+    }else if (letra == ')'){
+        primero = false;
+    }
+    if (primero){
+    if(letra == '(' || letra == ')'||letra == '^'||letra == 'V'||letra == 'v' ||letra == ' ' || letra == '@' ||letra == '~' ||letra == '-'||letra == '>' ||letra == '<' ){
+    } else {
+        cout <<letra<< " "<< prepro[guardar] <<endl;
+       repro[caso]= prepro[guardar];
+       caso ++;
+    } 
+    }
+     guardar++;
+}
+ cout<< "v1 " <<repro[0] << " v2 "<< repro[1];
 for (char letra:datos){
     if (letra == '('){
         primero=true;
     }else if (letra == ')'){
         primero= false;
-    }
-    if (primero){
-    if(letra == '(' || letra == ')'||letra == '^'||letra == 'V'||letra == 'v' ||letra == ' ' || letra == '@' ||letra == '~' ||letra == '-'||letra == '>' ||letra == '<' ){
-    } else {
-        cout <<"Ingrese el valor de verdad de la Preposicion "<<letra<<endl;
-        cin>>valores[guardar];
-        cout<<valores[guardar]<<endl;
-        guardar++;
-    } 
-    
-    }
-}
-//  guardar--;
-// cout <<"valores recividos\n";
-//  for (int i = 0; i <= guardar; i++)
-//     {
-//         cout <<valores[i]<<endl;
-//     }
-    
-//ver la prepocicion que se tiene
-    for (char letra:datos){
-        /*
-        if (letra =='~'){
-             if (repetir==2){
-                 negar = false;
-                 cout <<"\n doblenegacion\n";
-                 repetir =0;
-            }else {
-            cout <<"\n una negacion\n";
-            negar = true;
-           }
-            repetir++;
-        }
-*/
-if (letra == '<'||letra == '-'||letra == '>'){
-
-
-}
-    if (letra == '('){
-        primero=true;
-    }else if (letra == ')'){
-        primero= false;
-    }
-    
+    }   
     if (primero){ 
-    switch (letra)
-    {
+    switch (letra){
+    case 'V':
     case 'v':
-    cout <<"Disyuncion"<<endl;    
+    cout <<"Disyuncion"<<endl;
         break;
     case '^':
     cout <<"Conjuncion"<<endl;
@@ -72,36 +59,14 @@ if (letra == '<'||letra == '-'||letra == '>'){
     case '@':
     cout <<"Disyuncion exclusiva"<<endl;
         break;
-    default:
+    case '>':
+    cout <<"Condicional"<<endl;
+        break;
+    case '<':
+    cout <<"Bicondicional"<<endl;
         break;
     }
-    
     }
-
-
 }
-Tablas();
 return 0;
-}
-
-void Tablas() {
-    int numeroFilas = pow(2, guardar);
-    int vTablas[numeroFilas][guardar];
-    
-    // Generar valores para la matriz representando números binarios incrementados en uno
-    for (int i = 0; i < numeroFilas; i++) {
-        int num = i;
-        for (int j = guardar - 1; j >= 0; j--) {
-            vTablas[i][j] = num % 2;
-            num /= 2;
-        }
-    }
-    
-    // Imprimir la matriz con un espacio entre cada número
-    for (int i = 0; i < numeroFilas; i++) {
-        for (int j = 0; j < guardar; j++) {
-            cout << vTablas[i][j] << " ";
-        }
-        cout << endl;
-    }
 }
